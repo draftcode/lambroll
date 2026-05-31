@@ -1,5 +1,8 @@
 # Changelog
 
+## [v1.5.0](https://github.com/fujiwara/lambroll/compare/v1.4.4...v1.5.0) - 2026-05-31
+- Exclude GCS and AzureRM tfstate backends from release binaries by @fujiwara in https://github.com/fujiwara/lambroll/pull/598
+
 ## [v1.4.4](https://github.com/fujiwara/lambroll/compare/v1.4.3...v1.4.4) - 2026-05-26
 - Add DurableConfig to diff/update handling by @butadora3 in https://github.com/fujiwara/lambroll/pull/594
 - Bundle dependabot updates by @fujiwara in https://github.com/fujiwara/lambroll/pull/596
