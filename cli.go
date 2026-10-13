@@ -80,8 +80,12 @@ type CLIOptions struct {
 	Delete   *DeleteOption   `cmd:"delete" help:"delete function" json:"delete,omitempty"`
 	Versions *VersionsOption `cmd:"versions" help:"show versions of function" json:"versions,omitempty"`
 
-	WebDeploy *WebDeployOption `cmd:"web-deploy" help:"deploy or create web function" json:"web-deploy,omitempty"`
-	WebDelete *WebDeleteOption `cmd:"web-delete" help:"delete web function" json:"web-delete,omitempty"`
+	WebDeploy   *WebDeployOption   `cmd:"web-deploy" help:"deploy or create web function" json:"web-deploy,omitempty"`
+	WebDelete   *WebDeleteOption   `cmd:"web-delete" help:"delete web function" json:"web-delete,omitempty"`
+	WebDiff     *WebDiffOption     `cmd:"web-diff" help:"show diff of web function" json:"web-diff,omitempty"`
+	WebRollback *WebRollbackOption `cmd:"web-rollback" help:"rollback web function endpoint to previous revision" json:"web-rollback,omitempty"`
+	WebStatus   *WebStatusOption   `cmd:"web-status" help:"show status of web function" json:"web-status,omitempty"`
+	WebInit     *WebInitOption     `cmd:"web-init" help:"init web_function.json" json:"web-init,omitempty"`
 
 	Version struct{} `cmd:"version" help:"show version" json:"-"`
 
@@ -300,6 +304,14 @@ func dispatchCLI(ctx context.Context, sub string, usage func(), opts *CLIOptions
 		return app.WebDeploy(ctx, opts.WebDeploy)
 	case "web-delete":
 		return app.WebDelete(ctx, opts.WebDelete)
+	case "web-diff":
+		return app.WebDiff(ctx, opts.WebDiff)
+	case "web-rollback":
+		return app.WebRollback(ctx, opts.WebRollback)
+	case "web-status":
+		return app.WebStatus(ctx, opts.WebStatus)
+	case "web-init":
+		return app.WebInit(ctx, opts.WebInit)
 	default:
 		usage()
 	}
