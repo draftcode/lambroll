@@ -15,6 +15,7 @@ import (
 	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
+	"github.com/aws/aws-sdk-go-v2/service/lambdaweb"
 	"github.com/fujiwara/cfn-lookup/cfn"
 	"github.com/fujiwara/ssm-lookup/ssm"
 	"github.com/fujiwara/tfstate-lookup/tfstate"
@@ -90,6 +91,8 @@ var (
 		DefaultFunctionFilenames[1],
 		DefaultFunctionURLFilenames[0],
 		DefaultFunctionURLFilenames[1],
+		DefaultWebFunctionFilenames[0],
+		DefaultWebFunctionFilenames[1],
 		FunctionZipFilename,
 		".git/*",
 		".terraform/*",
@@ -108,6 +111,7 @@ type App struct {
 
 	awsConfig aws.Config
 	lambda    *lambda.Client
+	lambdaweb *lambdaweb.Client
 
 	extStr      map[string]string
 	extCode     map[string]string
@@ -221,6 +225,7 @@ func New(ctx context.Context, opt *Option) (*App, error) {
 		loader:           loader,
 		awsConfig:        v2cfg,
 		lambda:           lambda.NewFromConfig(v2cfg),
+		lambdaweb:        lambdaweb.NewFromConfig(v2cfg),
 		functionFilePath: opt.Function,
 		nativeFuncs:      nativeFuncs,
 		extStr:           opt.ExtStr,

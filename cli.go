@@ -80,6 +80,9 @@ type CLIOptions struct {
 	Delete   *DeleteOption   `cmd:"delete" help:"delete function" json:"delete,omitempty"`
 	Versions *VersionsOption `cmd:"versions" help:"show versions of function" json:"versions,omitempty"`
 
+	WebDeploy *WebDeployOption `cmd:"web-deploy" help:"deploy or create web function" json:"web-deploy,omitempty"`
+	WebDelete *WebDeleteOption `cmd:"web-delete" help:"delete web function" json:"web-delete,omitempty"`
+
 	Version struct{} `cmd:"version" help:"show version" json:"-"`
 
 	// LegacyExtStr and LegacyExtCode accept the pre-v1.3.1 option file key
@@ -293,6 +296,10 @@ func dispatchCLI(ctx context.Context, sub string, usage func(), opts *CLIOptions
 		return app.Delete(ctx, opts.Delete)
 	case "status":
 		return app.Status(ctx, opts.Status)
+	case "web-deploy":
+		return app.WebDeploy(ctx, opts.WebDeploy)
+	case "web-delete":
+		return app.WebDelete(ctx, opts.WebDelete)
 	default:
 		usage()
 	}
